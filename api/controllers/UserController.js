@@ -6,6 +6,7 @@
  */
 
 module.exports = {
-	
+	login: funciton(req, res){
+	}	
 };
 
