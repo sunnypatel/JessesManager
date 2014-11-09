@@ -16,13 +16,17 @@ module.exports = {
 		required: true
 	},
 	password: {
-		type: 'string'
+		type: 'string',
+		required: true
 	},
 	phone: {
-		type: 'string'
+		type: 'string',
+		unique: true,
+		required: true
 	},
 	accountType: {
-		type: 'integer'
+		type: 'integer',
+		required: true
 	},
 	token: {
 		type: 'string'
@@ -33,5 +37,10 @@ module.exports = {
 	encryptPassword: function(){
         this.password = md5(this.password);
 	}
-  }
+  },
+  
+	beforeCreate: function(values, cb) {
+		values.password = md5(values.password);
+		cb();
+	}
 };
