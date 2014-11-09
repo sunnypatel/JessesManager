@@ -4,43 +4,49 @@
 * @description :: TODO: You might write a short summary of how this model works and what it represents here.
 * @docs        :: http://sailsjs.org/#!documentation/models
 */
-var md5 = require('MD5');
+var md5 = require('bcrypt');
 
 module.exports = {
 
   attributes: {
-
-	email: {
-		type: 'string',
-		unique: true,
-		required: true
-	},
-	password: {
-		type: 'string',
-		required: true
-	},
-	phone: {
-		type: 'string',
-		unique: true,
-		required: true
-	},
-	accountType: {
-		type: 'integer',
-		required: true
-	},
-	token: {
-		type: 'string'
-	},
-	tokenExpires: {
-		type: 'datetime'
-	},
-	encryptPassword: function(){
-        this.password = md5(this.password);
-	}
+  	email: {
+  		type: 'string',
+  		unique: true,
+  		required: true
+  	},
+  	password: {
+  		type: 'string',
+  		required: true
+  	},
+  	phone: {
+  		type: 'string',
+  		unique: true,
+  		required: true
+  	},
+  	accountType: {
+  		type: 'integer',
+  		required: true
+  	},
+  	token: {
+  		type: 'string'
+  	},
+  	tokenExpires: {
+  		type: 'datetime'
+  	}
   },
-  
-	beforeCreate: function(values, cb) {
-		values.password = md5(values.password);
-		cb();
-	}
-};
+
+  beforeCreate: function (attrs, next) {
+    var bcrypt = require('bcrypt');
+
+    bcrypt.genSalt(10, function(err, salt) {
+      if (err) return next(err);
+
+      bcrypt.hash(attrs.password, salt, function(err, hash) {
+        if (err) return next(err);
+
+        attrs.password = hash;
+        next();
+      });
+    });
+  }
+}
