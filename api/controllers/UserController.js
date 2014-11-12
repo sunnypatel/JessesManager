@@ -46,5 +46,8 @@ module.exports = {
         res.json({ error: 'User not found' }, 404);
       }
     });
-  }
+  },
+	loginForm: function (req, res) {
+		return res.view();
+	}
 };
