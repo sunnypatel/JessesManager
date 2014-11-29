@@ -9,18 +9,20 @@
             </div>
             <div class="row">
                 <div class="col-md-4 col-md-offset-4">
-                    <form role="form" class="login-form clearfix">
+                  <!-- TODO: Form validation -->
+                    <form role="form" class="login-form clearfix" ng-controller="LoginController as loginCtrl"
+                                                                  ng-submit="loginCtrl.doLogin(loginCtrl.user)">
                         <div class="form-group">
-                            <label for="phone">Phone</label>
-                            <input type="number" class="form-control" placeholder="Enter phone">
-                        </div>
-                        {{1 + 2}}
-                        <div class="form-group">
-                            <label for="password">Password</label>
-                            <input type="password" class="form-control" placeholder="Enter password">
+                            <label for="phone">Phone {{loginCtrl.user.phone}} </label>
+                            <input type="number" class="form-control" placeholder="Enter phone" ng-model="loginCtrl.user.phone">
                         </div>
 
-                        <button  type="button" class="btn btn-primary pull-right">Submit</botton>
+                        <div class="form-group">
+                            <label for="password">Password {{loginCtrl.user.password}}</label>
+                            <input type="password" class="form-control" placeholder="Enter password" ng-model="loginCtrl.user.password">
+                        </div>
+
+                        <button  type="submit" class="btn btn-primary pull-right">Submit</botton>
                         </form>
                     </div>
                 </div>

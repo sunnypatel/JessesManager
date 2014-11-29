@@ -1,1 +1,4 @@
-var app = angular.module('manager', []);
+(function() {
+  var app = angular.module('manager', ['ngRoute']);
+
+})();
