@@ -1,3 +1,6 @@
+body{
+    background: inherit;
+}
 .login-title {
   color: #e8e8e8;
   margin-top:25px;
@@ -16,22 +19,31 @@
 .login-form {
 
   color: #303030;
-  margin-top:100px;
+  margin-top:50px;
   padding-top: 20px;
   border-radius: 5px;
 
 }
-/*
-.login {
-  background: url('/images/overhead_spices_desk.png') no-repeat;
-}*/
-body{
-    background: url('/images/overhead_spices_desk.png') no-repeat center center fixed;
+.lander{
+    background: url('/images/overhead_spices_desk.jpg') no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
+    height: 700px;
+}
+.landerOver{
+	position:absolute;
+	top: 0px;
+	left: 0px;
+	width: 100%;
+	height: 100%;
 }
 .navbar-row {
   background: none;
+}
+
+.leftNav {
+    background: blue;
+
 }
