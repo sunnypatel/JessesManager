@@ -122,6 +122,10 @@ body {
     border-radius: 0px;
     border:2px solid #bdc3c7;
 }
+.login-form input:active,
+.login-form input .form-control {
+    border-color: #1abc9c;
+}
 .navbar-brand {
     font-weight: 800px;
     font-size: 24px;

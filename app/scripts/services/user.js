@@ -8,6 +8,26 @@
 * Controller of the jessesManager2App
 */
 angular.module('jessesManager2App')
-.controller('userService', function ($scope) {
+.factory('UserService', ['$http', function($http) {
+  var devUrl = 'http://localhost:2730';
+  var prodUrl = 'http://api.jesseme.com:2730';
 
-});
+  var url = devUrl;
+  var factory = {};
+
+  factory.doLogin = function(user) {
+    console.log("UserService: doLogin = " + user);
+    var uri = url + '/user/login';
+
+    return $http({
+      method: 'POST',
+      url: uri,
+      data: {
+        phone: user.phone,
+        password: user.password
+      }
+    });
+  }
+
+  return factory;
+}]);
