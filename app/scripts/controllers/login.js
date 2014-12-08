@@ -17,11 +17,9 @@ function ($scope, $q, $location, UserService) {
       login: UserService.doLogin(user)
     })
     .then(function(response){
-      console.log("Got Response");
       var loginData = response.login.data;
       $scope.apiToken = loginData.apiToken;
       $location.path('/missionControl');
-      console.log('Token =' + $scope.apiToken);
     })
     .catch(function(err) {
         if (err.status == 400) {

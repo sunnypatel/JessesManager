@@ -1,0 +1,29 @@
+
+<div class="row" id="missionControl">
+    <div class="col-md-2 leftPanel">
+        <div class="branding">Jesse's Manager</div>
+        <a ui-sref="{{link.state}}" ui-sref-active="active" ng-repeat="link in links">{{link.name}}</a>
+    </div>
+    <div class="col-md-10 rightPanel">
+        <div class="row" id="missionControlNav">
+            <div class="col-xs-12">
+                <div class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a ui-sref="setting">
+                                 &nbsp;<span class="glyphicon glyphicon glyphicon-wrench" aria-hidden="true"></span>
+                            </a>
+                        </li>
+                        <li>
+                            <a ui-sref="login">
+                                Leave
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div ui-view></div>
+    </div>
+</div>

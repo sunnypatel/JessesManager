@@ -16,7 +16,6 @@ angular.module('jessesManager2App')
   var factory = {};
 
   factory.doLogin = function(user) {
-    console.log("UserService: doLogin = " + user);
     var uri = url + '/user/login';
 
     return $http({
