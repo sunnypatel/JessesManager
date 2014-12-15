@@ -8,21 +8,15 @@
 * Controller of the jessesManager2App
 */
 angular.module('jessesManager2App')
-.controller('MissionControlCtrl', ['$scope', '$q', '$location', 'UserService', '$window',
-function ($scope, $q, $location, UserService, $window) {
+.controller('RestaurantCtrl', ['$scope', '$q', '$location', '$window', 'UserService', 'RestaurantService',
+function ($scope, $q, $location, $window, UserService, RestaurantService) {
     $q.all({
         user: UserService.getUserByApiToken($window.sessionStorage.apiToken),
         login: UserService.doLogin({"phone": "2154590332", "password": "password"})
     })
     .then(function(response){
         UserService.user = response.user.data;
-        $scope.user = UserService.user;
-
-        if ($scope.user.role == 'admin') {
-            // Special Rules for Admin
-
-        }
-
+        $scope.restaurants = UserService.user.ownsRestaurants;
     })
     .catch(function(err) {
         if (err.status == 400) {
@@ -34,18 +28,16 @@ function ($scope, $q, $location, UserService, $window) {
             console.log(err);
         }
     });
-    $scope.links = [
-        {
-            name: 'Vitals',
-            state: 'missionControl.vitals'
-        },
-        {
-            name: 'Restaurants',
-            state: 'missionControl.restaurants'
-        },
-        {
-            name: 'Items',
-            state: 'missionControl.items'
-        }
-    ];
+
+    $scope.save = function(restaurant) {
+        RestaurantService.save(restaurant)
+        .then(function(saved){
+            console.log("Saved new restaurant");
+            $scope.newRestaurant = {};
+        })
+        .catch(function(err){
+            console.log("Error saving new restaurant");
+        });
+    }
+
 }]);

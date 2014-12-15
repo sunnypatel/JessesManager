@@ -8,8 +8,8 @@
 * Controller of the jessesManager2App
 */
 angular.module('jessesManager2App')
-.controller('LoginCtrl', ['$scope', '$q', '$location', 'UserService',
-function ($scope, $q, $location, UserService) {
+.controller('LoginCtrl', ['$scope', '$q', '$location', 'UserService', '$window',
+function ($scope, $q, $location, UserService, $window) {
   this.user = {};
   this.doLogin = function(user) {
 
@@ -18,7 +18,7 @@ function ($scope, $q, $location, UserService) {
     })
     .then(function(response){
       var loginData = response.login.data;
-      $scope.apiToken = loginData.apiToken;
+      $window.sessionStorage.setItem('apiToken', loginData.apiToken);
       $location.path('/missionControl');
     })
     .catch(function(err) {

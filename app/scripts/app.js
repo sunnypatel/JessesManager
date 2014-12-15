@@ -51,12 +51,12 @@ angular
     .state('missionControl.restaurants', {
         url: '/restaurants',
         templateUrl: '/views/restaurants.html',
-        controller: 'RestaurantsCtrl'
+        controller: 'RestaurantCtrl'
     })
     .state('missionControl.items', {
         url: '/items',
         templateUrl: '/views/items.html',
-        controller: 'ItemsCtrl'
+        controller: 'ItemCtrl'
     });
 
   });

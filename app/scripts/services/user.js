@@ -9,11 +9,15 @@
 */
 angular.module('jessesManager2App')
 .factory('UserService', ['$http', function($http) {
-  var devUrl = 'http://localhost:2730';
-  var prodUrl = 'http://api.jesseme.com:2730';
+  var dev = 'http://localhost:2730';
+  var staging = 'http://178.18.16.226:2730';
+  var prod = 'http://api.jesseme.com:2730';
 
-  var url = devUrl;
+  var url = dev;
   var factory = {};
+
+  factory.user = {};
+  factory.restaurants = {};
 
   factory.doLogin = function(user) {
     var uri = url + '/user/login';
@@ -26,6 +30,18 @@ angular.module('jessesManager2App')
         password: user.password
       }
     });
+  }
+
+  factory.getUserByApiToken = function(apiToken) {
+      var uri = url + '/user/apiToken';
+
+      return $http({
+          method: 'POST',
+          url: uri,
+          data: {
+              apiToken: apiToken
+          }
+      });
   }
 
   return factory;

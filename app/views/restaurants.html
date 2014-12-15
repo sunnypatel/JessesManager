@@ -1,3 +1,40 @@
-<div class="container">
-    <h2>Restaurants</h2>
+<h2>Restaurants{{test}}</h2>
+<div class="row" style="padding:10px;">
+    <div class="col-md-6">
+        <button class="btn glyphicon glyphicon-plus" aria-hidden="true" ng-click="showCreateForm=true">Create</button>
+    </div>
+    <div class="col-md-6">
+        <input class="pull-right" ng-model="search.$" placeholder="Search Restaurants">
+    </div>
+</div>
+<div class="row" style="padding:10px;">
+    <div class="col-md-12">
+        <table class="table table-striped">
+            <tr>
+                <th>Name</th>
+                <th>Latitude</th>
+                <th>Longitude</th>
+                <th>Actions</th>
+            </tr>
+            <tr ng-show="showCreateForm">
+                <td><input ng-model="newRestaurant.name"></td>
+                <td><input ng-model="newRestaurant.latitude"></td>
+                <td><input ng-model="newRestaurant.longitude"></td>
+                <td>
+                    <button class="btn btn-primary" ng-click="save(newRestaurant)">Save</button>
+                    <button class="btn btn-danger" ng-click="showCreateForm=false">Cancel</button>
+                </td>
+
+            </tr>
+            <tr ng-repeat="restaurant in restaurants | filter:search">
+                <td>{{restaurant.name}}</td>
+                <td>{{restaurant.latitude}}</td>
+                <td>{{restaurant.longitude}}</td>
+                <td>
+                    <button type="button" class="btn btn-primary">Edit</button>
+                    <button type="button" class="btn btn-danger">Delete</button>
+                </td>
+            </tr>
+        </table>
+    </div>
 </div>
