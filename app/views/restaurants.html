@@ -1,13 +1,20 @@
-<h2>Restaurants{{test}}</h2>
+<h2>Restaurants</h2>
+
 <div class="row" style="padding:10px;">
     <div class="col-md-6">
-        <button class="btn glyphicon glyphicon-plus" aria-hidden="true" ng-click="showCreateForm=true">Create</button>
+        <button class="btn glyphicon glyphicon-plus" aria-hidden="true" ng-click="createNewOn=true">Create</button>
     </div>
     <div class="col-md-6">
         <input class="pull-right" ng-model="search.$" placeholder="Search Restaurants">
     </div>
 </div>
-<div class="row" style="padding:10px;">
+<map center="current-location" zoom="6" ng-show="createNewOn">
+    <info-window position="current-location" visible="true">
+        <span>Loation found using HTML5.</span>
+    </info-window>
+</map>
+
+<div class="row" style="padding:10px;" ng-show="!createNewOn">
     <div class="col-md-12">
         <table class="table table-striped">
             <tr>
@@ -15,16 +22,6 @@
                 <th>Latitude</th>
                 <th>Longitude</th>
                 <th>Actions</th>
-            </tr>
-            <tr ng-show="showCreateForm">
-                <td><input ng-model="newRestaurant.name"></td>
-                <td><input ng-model="newRestaurant.latitude"></td>
-                <td><input ng-model="newRestaurant.longitude"></td>
-                <td>
-                    <button class="btn btn-primary" ng-click="save(newRestaurant)">Save</button>
-                    <button class="btn btn-danger" ng-click="showCreateForm=false">Cancel</button>
-                </td>
-
             </tr>
             <tr ng-repeat="restaurant in restaurants | filter:search">
                 <td>{{restaurant.name}}</td>

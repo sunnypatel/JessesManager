@@ -10,6 +10,8 @@
 angular.module('jessesManager2App')
 .controller('RestaurantCtrl', ['$scope', '$q', '$location', '$window', 'UserService', 'RestaurantService',
 function ($scope, $q, $location, $window, UserService, RestaurantService) {
+    $scope.createNewOn = false;
+
     $q.all({
         user: UserService.getUserByApiToken($window.sessionStorage.apiToken),
         login: UserService.doLogin({"phone": "2154590332", "password": "password"})
@@ -28,7 +30,6 @@ function ($scope, $q, $location, $window, UserService, RestaurantService) {
             console.log(err);
         }
     });
-
     $scope.save = function(restaurant) {
         RestaurantService.save(restaurant)
         .then(function(saved){
@@ -38,6 +39,10 @@ function ($scope, $q, $location, $window, UserService, RestaurantService) {
         .catch(function(err){
             console.log("Error saving new restaurant");
         });
+    }
+
+    $scope.saveNewRestaurant = function(newRestaurant) {
+        console.log("saving new restaurant");
     }
 
 }]);
