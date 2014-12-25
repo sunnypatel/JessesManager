@@ -17,25 +17,9 @@ angular
     'ngSanitize',
     'ngTouch',
     'ui.router',
-    'ngMap'
+    'uiGmapgoogle-maps'
   ])
-  .config(function ($routeProvider, $stateProvider, $urlRouterProvider) {
-    /*$routeProvider
-      .when('/', {
-        templateUrl: 'views/login.html',
-        controller: 'LoginCtrl'
-      })
-      .when('/about', {
-        templateUrl: 'views/about.html',
-        controller: 'AboutCtrl'
-      })
-      .when('/missionControl', {
-        templateUrl: 'views/missionControl.html',
-        controller:  'missionControlCtrl'
-      })
-      .otherwise({
-        redirectTo: '/'
-    });*/
+  .config(function ($routeProvider, $stateProvider, $urlRouterProvider, uiGmapGoogleMapApiProvider) {
     $urlRouterProvider.otherwise('/login');
 
     $stateProvider
@@ -60,4 +44,9 @@ angular
         controller: 'ItemCtrl'
     });
 
-  });
+    uiGmapGoogleMapApiProvider.configure({
+        key: 'AIzaSyDXIVV5zLW1cQNCkqgSzH_zUreskJ0SfYk',
+        v: '3.17',
+        libraries: 'weather,geometry,visualization'
+    });
+});

@@ -2,17 +2,12 @@
 
 <div class="row" style="padding:10px;">
     <div class="col-md-6">
-        <button class="btn glyphicon glyphicon-plus" aria-hidden="true" ng-click="createNewOn=true">Create</button>
+        <button class="btn glyphicon glyphicon-plus" aria-hidden="true" data-toggle="modal" data-target="#newRestaurantModal">Create</button>
     </div>
     <div class="col-md-6">
         <input class="pull-right" ng-model="search.$" placeholder="Search Restaurants">
     </div>
 </div>
-<map center="current-location" zoom="6" ng-show="createNewOn">
-    <info-window position="current-location" visible="true">
-        <span>Loation found using HTML5.</span>
-    </info-window>
-</map>
 
 <div class="row" style="padding:10px;" ng-show="!createNewOn">
     <div class="col-md-12">
@@ -35,3 +30,22 @@
         </table>
     </div>
 </div>
+
+<div class="modal fade" id="newRestaurantModal">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">New Restaurant</h4>
+            </div>
+            <div class="modal-body">
+                <button ng-click="shown=true">shown</button>{{shown}}
+                <ui-gmap-google-map center='map.center' refresh='shown' zoom='map.zoom'></ui-gmap-google-map>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
