@@ -15,8 +15,7 @@ angular.module('jessesManager2App')
     '$window',
     'UserService',
     'RestaurantService',
-    'uiGmapGoogleMapApi',
-    function ($scope, $q, $location, $window, UserService, RestaurantService, uiGmapGoogleMapApi) {
+    function ($scope, $q, $location, $window, UserService, RestaurantService) {
         $scope.createNewOn = false;
 
         $q.all({
@@ -52,16 +51,16 @@ angular.module('jessesManager2App')
             console.log("saving new restaurant");
         }
 
-        $scope.doRefresh = function() {
-            $scope.map = { center: { latitude: 23, longitude: 34 }, zoom: 8};
-            $scope.shown = true;
+        function initialize() {
+            //  Initialize Map
+            var mapOptions = {
+                center: { lat: -34.397, lng: 150.644},
+                zoom: 8
+            };
+            var mapDiv = document.getElementsById('newRestaurantMap');
+            var map = new google.maps.Map(mapDiv, mapOptions);
         }
-        $scope.map = { center: { latitude: 0, longitude: 0 }, zoom: 8};
-        $scope.shown = false;
 
-
-        $('#newRestaurantModal').on('show.bs.modal', function (e) {
-            $scope.shown = true;
-        });
+        google.maps.event.addDomListener(window, 'load', initialize);
     }
 ]);

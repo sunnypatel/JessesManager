@@ -16,10 +16,9 @@ angular
     'ngRoute',
     'ngSanitize',
     'ngTouch',
-    'ui.router',
-    'uiGmapgoogle-maps'
+    'ui.router'
   ])
-  .config(function ($routeProvider, $stateProvider, $urlRouterProvider, uiGmapGoogleMapApiProvider) {
+  .config(function ($routeProvider, $stateProvider, $urlRouterProvider) {
     $urlRouterProvider.otherwise('/login');
 
     $stateProvider
@@ -44,9 +43,4 @@ angular
         controller: 'ItemCtrl'
     });
 
-    uiGmapGoogleMapApiProvider.configure({
-        key: 'AIzaSyDXIVV5zLW1cQNCkqgSzH_zUreskJ0SfYk',
-        v: '3.17',
-        libraries: 'weather,geometry,visualization,places'
-    });
 });
