@@ -53,7 +53,7 @@ angular.module('jessesManager2App')
         }
 
         $scope.shown = false;
-
+        $scope.newRestaurant = {};
         uiGmapGoogleMapApi.then(function(maps) {
 
             $scope.map = {center: {latitude: 40.1451, longitude: -99.6680 }, zoom: 18 };
@@ -71,14 +71,13 @@ angular.module('jessesManager2App')
 
                 var place = autocomplete.getPlace();
                 console.log(place);
+                $scope.newRestaurant.phone = place.formatted_phone_number;
+                $scope.newRestaurant.address = place.formatted_address;
                 var longi = place.geometry.location.C;
                 var lat = place.geometry.location.k;
                 $scope.map.center.latitude = lat;
                 $scope.map.center.longitude = longi;
-                $scope.shown = true;
-                console.log($scope.map)
                 $scope.map.refresh({latitude: lat, longitude: longi});
-
                 $scope.marker.coords = {latitude: lat, longitude: longi};
 
             });
