@@ -52,16 +52,38 @@ angular.module('jessesManager2App')
             console.log("saving new restaurant");
         }
 
-        $scope.doRefresh = function() {
-            $scope.map = { center: { latitude: 23, longitude: 34 }, zoom: 8};
-            $scope.shown = true;
-        }
-        $scope.map = { center: { latitude: 0, longitude: 0 }, zoom: 8};
         $scope.shown = false;
 
+        uiGmapGoogleMapApi.then(function(maps) {
 
-        $('#newRestaurantModal').on('show.bs.modal', function (e) {
-            $scope.shown = true;
+            $scope.map = {center: {latitude: 40.1451, longitude: -99.6680 }, zoom: 18 };
+            $scope.options = {
+                mapMaker: true,
+            };
+
+            $scope.marker = {
+                id:1
+            };
+
+            var autocomplete = new google.maps.places.Autocomplete( document.getElementById('autocomplete'), { types: [] });
+            autocomplete.bindTo('bound', $scope.map);
+            google.maps.event.addListener(autocomplete, 'place_changed', function() {
+
+                var place = autocomplete.getPlace();
+                console.log(place);
+                var longi = place.geometry.location.C;
+                var lat = place.geometry.location.k;
+                $scope.map.center.latitude = lat;
+                $scope.map.center.longitude = longi;
+                $scope.shown = true;
+                console.log($scope.map)
+                $scope.map.refresh({latitude: lat, longitude: longi});
+
+                $scope.marker.coords = {latitude: lat, longitude: longi};
+
+            });
         });
+
+
     }
 ]);

@@ -1,10 +1,16 @@
 
 <div class="row" id="missionControl">
-    <div class="col-md-2 leftPanel">
+    <div class="col-md-1 leftPanel">
         <div class="branding">Jesse's Manager</div>
-        <a ui-sref="{{link.state}}" ui-sref-active="active" ng-repeat="link in links">{{link.name}}</a>
+        <div class="link" ng-repeat="link in links">
+            <a ui-sref="{{link.state}}" ui-sref-active="active">
+                <span class="glyphicon {{link.glyphicon}}" aria-hidden="true"></span><br>
+                {{link.name}}
+            </a>
+        </div>
+
     </div>
-    <div class="col-md-10 rightPanel">
+    <div class="col-md-11 rightPanel">
         <div class="row" id="missionControlNav">
             <div class="col-xs-12">
                 <div class="collapse navbar-collapse">

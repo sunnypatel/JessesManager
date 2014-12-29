@@ -37,15 +37,18 @@ function ($scope, $q, $location, UserService, $window) {
     $scope.links = [
         {
             name: 'Vitals',
-            state: 'missionControl.vitals'
+            state: 'missionControl.vitals',
+            glyphicon: 'glyphicon glyphicon-stats'
         },
         {
             name: 'Restaurants',
-            state: 'missionControl.restaurants'
+            state: 'missionControl.restaurants',
+            glyphicon: 'glyphicon glyphicon-list'
         },
         {
             name: 'Items',
-            state: 'missionControl.items'
+            state: 'missionControl.items',
+            glyphicon: 'glyphicon glyphicon-th'
         }
     ];
 }]);
