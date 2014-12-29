@@ -189,4 +189,7 @@ body {
     margin: 0px;
     padding: 0px
 }
+.restaurantList {
+    min-height:230px;
+}
 .angular-google-map-container { height: 400px;}

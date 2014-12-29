@@ -1,51 +1,58 @@
-<h2>Restaurants</h2>
+<div style="padding:15px;" data-spy="scroll">
+    <h2>Restaurants</h2>
 
-<div class="row" style="padding:10px;">
-    <div class="col-md-6">
-        <button class="btn glyphicon glyphicon-plus" aria-hidden="true" data-toggle="modal" data-target="#newRestaurantModal">Create</button>
+    <div class="row">
+        <div class="col-md-12">
+            <input class="pull-right" style="margin-bottom:5px; padding:5px;" ng-model="search.$" placeholder="Search Restaurants">
+        </div>
     </div>
-    <div class="col-md-6">
-        <input class="pull-right" ng-model="search.$" placeholder="Search Restaurants">
+    <div class="row restaurantList">
+        <div class="col-md-12">
+            <table class="table table-striped">
+                <tr>
+                    <th>Name</th>
+                    <th>Latitude</th>
+                    <th>Longitude</th>
+                    <th><div class="pull-right" style="padding-right:50px;">Actions</div></th>
+                </tr>
+                <tr ng-repeat="restaurant in restaurants | filter:search | limitTo:5">
+                    <td>{{restaurant.name}}</td>
+                    <td>{{restaurant.latitude}}</td>
+                    <td>{{restaurant.longitude}}</td>
+                    <td>
+                        <div class="pull-right">
+                            <button type="button" class="btn btn-primary">Edit</button>
+                            <button type="button" class="btn btn-danger">Delete</button>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <h2>Create new restaurant</h2>
+    <div class="row" style="margin-top: 10px;">
+
+        <div class="col-md-4">
+            <form>
+                <div class="form-group">
+                    <label for="restaurantName">Restaurant Name</label>
+                    <input type="text" class="form-control" id="restaurantName" placeholder="Ex. Brandywine Pizza">
+                </div>
+                <div class="form-group">
+                    <label for="address">Address</label>
+                    <input type="password" class="form-control" id="address" placeholder="Ex. 1500 Brandywine st. Philadelphia, PA 19130">
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox"> Check me out
+                    </label>
+                </div>
+                <button type="submit" class="btn btn-default" ng-click="doRefresh()">Find me</button>
+            </form>
+        </div>
+        <div class="col-md-8">
+
+            <ui-gmap-google-map center='map.center' refresh='shown' zoom='map.zoom'></ui-gmap-google-map>
+        </div>
     </div>
 </div>
-
-<div class="row" style="padding:10px;" ng-show="!createNewOn">
-    <div class="col-md-12">
-        <table class="table table-striped">
-            <tr>
-                <th>Name</th>
-                <th>Latitude</th>
-                <th>Longitude</th>
-                <th>Actions</th>
-            </tr>
-            <tr ng-repeat="restaurant in restaurants | filter:search">
-                <td>{{restaurant.name}}</td>
-                <td>{{restaurant.latitude}}</td>
-                <td>{{restaurant.longitude}}</td>
-                <td>
-                    <button type="button" class="btn btn-primary">Edit</button>
-                    <button type="button" class="btn btn-danger">Delete</button>
-                </td>
-            </tr>
-        </table>
-    </div>
-</div>
-
-<div class="modal fade" id="newRestaurantModal">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">New Restaurant</h4>
-            </div>
-            <div class="modal-body">
-                <button ng-click="shown=true">shown</button>{{shown}}
-                <ui-gmap-google-map center='map.center' refresh='shown' zoom='map.zoom'></ui-gmap-google-map>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->

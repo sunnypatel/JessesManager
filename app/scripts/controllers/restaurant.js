@@ -16,10 +16,9 @@ angular.module('jessesManager2App')
     'UserService',
     'RestaurantService',
     'uiGmapGoogleMapApi',
-    'uiGmapLogger',
-    function ($scope, $q, $location, $window, UserService, RestaurantService, uiGmapGoogleMapApi, uiGmapLogger) {
+    function ($scope, $q, $location, $window, UserService, RestaurantService, uiGmapGoogleMapApi) {
         $scope.createNewOn = false;
-        uiGmapLogger.doLog = true;
+
         $q.all({
             user: UserService.getUserByApiToken($window.sessionStorage.apiToken),
             login: UserService.doLogin({"phone": "2154590332", "password": "password"})
@@ -53,8 +52,13 @@ angular.module('jessesManager2App')
             console.log("saving new restaurant");
         }
 
-        $scope.map = { center: { latitude: 45, longitude: -73 }, zoom: 8, lat:23, long:25};
+        $scope.doRefresh = function() {
+            $scope.map = { center: { latitude: 23, longitude: 34 }, zoom: 8};
+            $scope.shown = true;
+        }
+        $scope.map = { center: { latitude: 0, longitude: 0 }, zoom: 8};
         $scope.shown = false;
+
 
         $('#newRestaurantModal').on('show.bs.modal', function (e) {
             $scope.shown = true;
