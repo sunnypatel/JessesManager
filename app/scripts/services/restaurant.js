@@ -14,7 +14,7 @@ angular.module('jessesManager2App')
     var staging = 'http://178.18.16.226:2730';
     var prod = 'http://api.jesseme.com:2730';
 
-    var url = dev;
+    var url = staging;
     var factory = {};
 
     factory.getRestaurantsBy = function(user) {
