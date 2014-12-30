@@ -14,7 +14,7 @@ angular.module('jessesManager2App')
     var staging = 'http://178.18.16.226:2730';
     var prod = 'http://api.jesseme.com:2730';
 
-    var url = staging;
+    var url = dev;
     var factory = {};
 
     factory.getRestaurantsBy = function(user) {
@@ -29,7 +29,22 @@ angular.module('jessesManager2App')
             }
         });
     }
-
+    factory.createRestaurant = function(restaurant) {
+        var uri = url + '/restaurant/create';
+        restaurant.apiToken = apiToken;
+        return $http({
+            method: 'POST',
+            url: uri,
+            data: restaurant
+        });
+    }
+    factory.destroy = function(id) {
+        var uri = url + "/restaurant/destroy/" + id;
+        return $http({
+            method: 'GET',
+            url: uri
+        });
+    }
     factory.doLogin = function(user) {
         var uri = url + '/user/login';
 
@@ -39,25 +54,6 @@ angular.module('jessesManager2App')
             data: {
                 phone: user.phone,
                 password: user.password
-            }
-        });
-    }
-
-
-
-    factory.save = function(restaurant) {
-        var uri = url + '/restaurant/create';
-        console.log(apiToken);
-        console.log("RestaurantService apitoken=" + apiToken);
-        console.log(restaurant);
-        return $http({
-            method: 'POST',
-            url: uri,
-            data: {
-                name: restaurant.name,
-                latitude: restaurant.latitude,
-                longitude: restaurant.longitude,
-                apiToken: apiToken
             }
         });
     }

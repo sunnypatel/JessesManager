@@ -17,41 +17,48 @@ angular.module('jessesManager2App')
     'RestaurantService',
     'uiGmapGoogleMapApi',
     function ($scope, $q, $location, $window, UserService, RestaurantService, uiGmapGoogleMapApi) {
-        $scope.createNewOn = false;
+    //    $scope.createNewOn = false;
 
-        $q.all({
-            user: UserService.getUserByApiToken($window.sessionStorage.apiToken),
-            login: UserService.doLogin({"phone": "2154590332", "password": "password"})
-        })
-        .then(function(response){
-            UserService.user = response.user.data;
-            $scope.restaurants = UserService.user.ownsRestaurants;
-        })
-        .catch(function(err) {
-            if (err.status == 400) {
-                console.log(err);
-            } else if(err.status == 401) {
-                console.log(err);
-            } else {
-                console.log('Unknown error');
-                console.log(err);
-            }
-        });
-        $scope.save = function(restaurant) {
-            RestaurantService.save(restaurant)
-            .then(function(saved){
-                console.log("Saved new restaurant");
-                $scope.newRestaurant = {};
+        $scope.refreshRestaurants = function() {
+            $q.all({
+                user: UserService.getUserByApiToken($window.sessionStorage.apiToken),
+                login: UserService.doLogin({"phone": "2154590332", "password": "password"})
             })
-            .catch(function(err){
-                console.log("Error saving new restaurant");
+            .then(function(response){
+                UserService.user = response.user.data;
+                $scope.restaurants = UserService.user.ownsRestaurants;
+            })
+            .catch(function(err) {
+                if (err.status == 400) {
+                    console.log(err);
+                } else if(err.status == 401) {
+                    console.log(err);
+                } else {
+                    console.log('Unknown error');
+                    console.log(err);
+                }
             });
         }
-
         $scope.saveNewRestaurant = function(newRestaurant) {
-            console.log("saving new restaurant");
+            RestaurantService.createRestaurant(newRestaurant)
+            .then(function(){
+                $scope.refreshRestaurants();
+            })
+            .catch(function(err){
+                console.log("Error creating new restaurant");
+            })
         }
+        $scope.delete = function(restaurant) {
+            RestaurantService.destroy(restaurant.id)
+            .then(function(){
+                $scope.refreshRestaurants();
+            })
 
+        }
+        $scope.edit = function(restaurant) {
+            alert('this functionality doesnt exist yet!');
+        }
+        $scope.refreshRestaurants();
         $scope.shown = false;
         $scope.newRestaurant = {};
         uiGmapGoogleMapApi.then(function(maps) {
@@ -71,15 +78,25 @@ angular.module('jessesManager2App')
 
                 var place = autocomplete.getPlace();
                 console.log(place);
-                $scope.newRestaurant.phone = place.formatted_phone_number;
-                $scope.newRestaurant.address = place.formatted_address;
-                var longi = place.geometry.location.C;
-                var lat = place.geometry.location.k;
-                $scope.map.center.latitude = lat;
-                $scope.map.center.longitude = longi;
-                $scope.map.refresh({latitude: lat, longitude: longi});
-                $scope.marker.coords = {latitude: lat, longitude: longi};
 
+                $scope.restaurant.name = place.name;
+                $scope.restaurant.street = place.address_components[1].long_name;
+                $scope.restaurant.city = place.address_components[2].long_name;
+                $scope.restaurant.state = place.address_components[3].short_name;
+                $scope.restaurant.country = place.address_components[4].short_name;
+                $scope.restaurant.zipcode = place.address_components[5].long_name;
+                $scope.restaurant.fullAddress = place.formatted_address;
+                $scope.restaurant.phone = place.international_phone_number;
+                $scope.restaurant.latitude = place.geometry.location.k;
+                $scope.restaurant.longitude = place.geometry.location.C;
+
+                var geolocation = {
+                    latitude: $scope.restaurant.latitude,
+                    longitude: $scope.restaurant.longitude
+                };
+
+                $scope.map.refresh(geolocation);
+                $scope.marker.coords = geolocation;
             });
         });
 
