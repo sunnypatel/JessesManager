@@ -21,8 +21,7 @@ angular.module('jessesManager2App')
 
         $scope.refreshRestaurants = function() {
             $q.all({
-                user: UserService.getUserByApiToken($window.sessionStorage.apiToken),
-                login: UserService.doLogin({"phone": "2154590332", "password": "password"})
+                user: UserService.getUserByApiToken($window.sessionStorage.apiToken)
             })
             .then(function(response){
                 UserService.user = response.user.data;
@@ -80,11 +79,19 @@ angular.module('jessesManager2App')
                 console.log(place);
 
                 $scope.restaurant.name = place.name;
-                $scope.restaurant.street = place.address_components[1].long_name;
-                $scope.restaurant.city = place.address_components[2].long_name;
-                $scope.restaurant.state = place.address_components[3].short_name;
-                $scope.restaurant.country = place.address_components[4].short_name;
-                $scope.restaurant.zipcode = place.address_components[5].long_name;
+                if (place.address_components.length == 5) {
+                    $scope.restaurant.street = place.address_components[0].long_name;
+                    $scope.restaurant.city = place.address_components[1].long_name;
+                    $scope.restaurant.state = place.address_components[2].short_name;
+                    $scope.restaurant.country = place.address_components[3].short_name;
+                    $scope.restaurant.zipcode = place.address_components[4].long_name;
+                } else {
+                    $scope.restaurant.street = place.address_components[0].long_name + " " + place.address_components[1].long_name;
+                    $scope.restaurant.city = place.address_components[2].long_name;
+                    $scope.restaurant.state = place.address_components[3].short_name;
+                    $scope.restaurant.country = place.address_components[4].short_name;
+                    $scope.restaurant.zipcode = place.address_components[5].long_name;
+                }
                 $scope.restaurant.fullAddress = place.formatted_address;
                 $scope.restaurant.phone = place.international_phone_number;
                 $scope.restaurant.latitude = place.geometry.location.k;

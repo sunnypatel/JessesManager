@@ -41,7 +41,9 @@ body {
   color: #777;
   border-top: 1px solid #e5e5e5;
 }
-
+.mouseClick:hover{
+    cursor:hand;
+}
 .mainLogin {
     background: url('/images/overhead_spices_desk.jpg') no-repeat center center fixed;
     /*background: #2c3e50;*/
@@ -195,5 +197,8 @@ body {
 }
 .restaurantList {
     min-height:230px;
+}
+.itemList {
+    margin-top:20px;
 }
 .angular-google-map-container { height: 400px;}

@@ -45,6 +45,13 @@ angular.module('jessesManager2App')
             url: uri
         });
     }
+    factory.getItemsByRestaurant = function(restaurantId) {
+        var uri = url + '/item?restaurantId=' + restaurantId;
+        return $http({
+            method: 'GET',
+            url: uri
+        });
+    }
     factory.doLogin = function(user) {
         var uri = url + '/user/login';
 
