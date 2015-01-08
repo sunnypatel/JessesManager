@@ -52,16 +52,20 @@ angular.module('jessesManager2App')
             url: uri
         });
     }
-    factory.doLogin = function(user) {
-        var uri = url + '/user/login';
-
+    factory.addItem = function(newItem) {
+        var uri = url + '/item';
         return $http({
             method: 'POST',
             url: uri,
-            data: {
-                phone: user.phone,
-                password: user.password
-            }
+            data: newItem
+        });
+    }
+    factory.removeItem = function(item) {
+        var uri = url + '/item/destroy/' + item.id;
+        return $http({
+            method: 'GET',
+            url: uri,
+            data: item
         });
     }
     return factory;

@@ -19,10 +19,7 @@ function ($scope, $q, $location, $window, UserService, RestaurantService) {
         $scope.restaurants = UserService.user.ownsRestaurants;
         $scope.selectedRestaurantId = $scope.restaurants[0].id || $window.sessionStorage.selectedRestaurant;
         $scope.selectedRestaurant = findById($scope.selectedRestaurantId, $scope.restaurants);
-        RestaurantService.getItemsByRestaurant($scope.selectedRestaurantId)
-        .then(function(resultItems){
-            $scope.items = resultItems.data;
-        })
+        $scope.refreshItems($scope.selectedRestaurantId);
     })
     .catch(function(err) {
         if (err.status == 400) {
@@ -34,7 +31,12 @@ function ($scope, $q, $location, $window, UserService, RestaurantService) {
             console.log(err);
         }
     });
-
+    $scope.refreshItems = function(restaurantId) {
+        RestaurantService.getItemsByRestaurant($scope.selectedRestaurantId)
+        .then(function(resultItems){
+            $scope.items = resultItems.data;
+        });
+    }
     $scope.changeSelRestaurant = function(restaurant) {
         $window.sessionStorage.setItem('selectedRestaurant', restaurant.id);
         $scope.selectedRestaurant = restaurant;
@@ -42,6 +44,26 @@ function ($scope, $q, $location, $window, UserService, RestaurantService) {
         .then(function(resultItems){
             console.log(resultItems);
             $scope.items = resultItems.data;
+        });
+    }
+
+    $scope.addItem = function(newItem) {
+        console.log(newItem);
+        newItem.restaurantId = $scope.selectedRestaurant.id;
+        newItem.apiToken = $window.sessionStorage.apiToken;
+        RestaurantService.addItem(newItem)
+        .then(function(results){
+            console.log(results);
+            $('#newItemModal').modal('hide');
+            $scope.refreshItems($scope.selectedRestaurant.id);
+        });
+    }
+    $scope.removeItem = function(item) {
+        item.apiToken = $window.sessionStorage.apiToken;
+        RestaurantService.removeItem(item)
+        .then(function(results){
+            console.log('Removed item');
+            $scope.refreshItems($scope.selectedRestaurant.id);
         });
     }
 
