@@ -11,7 +11,7 @@ angular.module('jessesManager2App')
 .factory('UserService', ['$http', function($http) {
   var dev = 'http://localhost:2730';
   var staging = 'http://178.18.16.226:2730';
-  var prod = 'http://api.jesseme.com:2730';
+  var prod = 'http://54.149.0.6:2730';
 
   var url = prod;
   var factory = {};
