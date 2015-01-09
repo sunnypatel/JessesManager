@@ -12,7 +12,7 @@ angular.module('jessesManager2App')
     var apiToken = $window.sessionStorage.apiToken;
     var dev = 'http://localhost:2730';
     var staging = 'http://178.18.16.226:2730';
-    var prod = 'http://54.149.0.6:2730';
+    var prod = 'http://restaurantapi.jesseme.com';
 
     var url = prod;
     var factory = {};
