@@ -1,23 +1,61 @@
 <div style="padding:15px;" data-spy="scroll">
-    <h2>Menu Items</h2>
-    <div class="row">
-        <div class="col-md-12">
-            <div class="btn-group" role="group" aria-label="...">
-                <div class="btn-group" role="group">
-                    <button type="button" class="btn btn-default dropdown-toggle" id="restaurantDropDown" data-toggle="dropdown" aria-expanded="false">
-                        {{selectedRestaurant.name}}
-                        <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu" role="menu" aria-labelledby="restaurantDropDown">
-                        <li class="mouseClick" class="mouseClick" ng-repeat="restaurant in restaurants track by restaurant.id"><a role="menuitem" tabindex="-1" class="mouseClick" ng-click="changeSelRestaurant(restaurant)">{{restaurant.name}}</a></li>
-                    </ul>
+    <div class="stickHeader">
+        <div class="row">
+            <nav class="navbar navbar-default" style="margin:10px;">
+              <div class="container-fluid">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                  </button>
+                  <a class="navbar-brand" href="#">Menu Items</a>
                 </div>
-                <button type="button" class="btn btn-default" data-toggle="modal" data-target="#newItemModal"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> New Item</button>
-            </div>
 
-            <input class="pull-right" style="margin-bottom:5px; padding:5px;" ng-model="search.$" placeholder="Search Items">
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                  <ul class="nav navbar-nav">
+
+                    <li class="dropdown">
+                      <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{selectedRestaurant.name}} <span class="caret"></span></a>
+                      <ul class="dropdown-menu" role="menu">
+                          <li class="mouseClick" class="mouseClick" ng-repeat="restaurant in restaurants track by restaurant.id"><a role="menuitem" tabindex="-1" class="mouseClick" ng-click="changeSelRestaurant(restaurant)">{{restaurant.name}}</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                  <form class="navbar-form navbar-right" role="search">
+                    <div class="form-group">
+                      <input type="text" class="form-control"  ng-model="search.$" placeholder="Search Items">
+                    </div>
+                  </form>
+                </div><!-- /.navbar-collapse -->
+              </div><!-- /.container-fluid -->
+            </nav>
+<!--
+            <div class="col-md-12">
+                <div class="btn-group" role="group" aria-label="...">
+                    <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-default dropdown-toggle" id="restaurantDropDown" data-toggle="dropdown" aria-expanded="false">
+                            {{selectedRestaurant.name}}
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="restaurantDropDown">
+                            <li class="mouseClick" class="mouseClick" ng-repeat="restaurant in restaurants track by restaurant.id"><a role="menuitem" tabindex="-1" class="mouseClick" ng-click="changeSelRestaurant(restaurant)">{{restaurant.name}}</a></li>
+                        </ul>
+                    </div>
+                    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#newItemModal"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> New Item</button>
+                </div>
+            </div>
+            <form class="navbar-form navbar-left" role="search">
+              <div class="form-group">
+                <input type="text" class="form-control" placeholder="Search" ng-model="search.$" placeholder="Search Items">
+              </div>
+              <button type="submit" class="btn btn-default">Submit</button>
+            </form>
         </div>
-    </div>
+    </div> -->
     <div class="row itemList">
         <div class="col-md-12">
             <div class="col-sm-6 col-md-4" ng-repeat="item in items | filter:search">

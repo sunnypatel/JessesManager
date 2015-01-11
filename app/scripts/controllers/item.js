@@ -32,7 +32,7 @@ function ($scope, $q, $location, $window, UserService, RestaurantService) {
         }
     });
     $scope.refreshItems = function(restaurantId) {
-        RestaurantService.getItemsByRestaurant($scope.selectedRestaurantId)
+        RestaurantService.getItemsByRestaurant(restaurantId)
         .then(function(resultItems){
             $scope.items = resultItems.data;
         });
@@ -40,6 +40,7 @@ function ($scope, $q, $location, $window, UserService, RestaurantService) {
     $scope.changeSelRestaurant = function(restaurant) {
         $window.sessionStorage.setItem('selectedRestaurant', restaurant.id);
         $scope.selectedRestaurant = restaurant;
+        $scope.selectedRestaurantId = restaurant.id;
         RestaurantService.getItemsByRestaurant(restaurant.id)
         .then(function(resultItems){
             console.log(resultItems);
