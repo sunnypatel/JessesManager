@@ -209,3 +209,14 @@ body {
 	margin-top:20px;
 }
 .angular-google-map-container { height: 400px;}
+
+/********************************************/
+/*                 Orders                   */
+/********************************************/
+.orders-tools {
+	margin-bottom: 10px;
+}
+.mainOrder_col1 {
+	text-align: center;
+	border-right: 2px dotted #337ab7;
+}
