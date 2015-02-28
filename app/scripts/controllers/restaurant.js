@@ -77,7 +77,7 @@ angular.module('jessesManager2App')
 
                 var place = autocomplete.getPlace();
                 console.log(place);
-
+                $scope.restaurant.google_place_id = place.place_id;
                 $scope.restaurant.name = place.name;
                 if (place.address_components.length == 5) {
                     $scope.restaurant.street = place.address_components[0].long_name;
