@@ -51,7 +51,7 @@ angular
 	});
 
 	uiGmapGoogleMapApiProvider.configure({
-		key: 'AIzaSyDXIVV5zLW1cQNCkqgSzH_zUreskJ0SfYk',
+		key: 'AIzaSyBeGxejqsFtYezedrrV21WWIc1b_EivI7E',
 		v: '3.17',
 		libraries: 'weather,geometry,visualization,places'
 	});
