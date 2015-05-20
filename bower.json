@@ -15,7 +15,9 @@
     "angular-google-maps": "~2.0.12",
     "lodash": "~2.4.1",
     "ui-router": "~0.2.13",
-    "ng-tags-input": "2.1.1"
+    "ng-tags-input": "2.1.1",
+    "less": "~2.5.0",
+    "sb-admin": "*"
   },
   "devDependencies": {
     "angular-mocks": "1.2.16",
