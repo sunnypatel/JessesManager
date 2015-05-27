@@ -28,35 +28,38 @@ angular.module('jessesManager2App')
                 $scope.restaurants = UserService.user.ownsRestaurants;
             })
             .catch(function(err) {
-                if (err.status == 400) {
+                if (err.status === 400) {
                     console.log(err);
-                } else if(err.status == 401) {
+                } else if(err.status === 401) {
                     console.log(err);
                 } else {
                     console.log('Unknown error');
                     console.log(err);
                 }
             });
-        }
+        };
+
         $scope.saveNewRestaurant = function(newRestaurant) {
             RestaurantService.createRestaurant(newRestaurant)
             .then(function(){
                 $scope.refreshRestaurants();
             })
             .catch(function(err){
-                console.log("Error creating new restaurant");
-            })
-        }
+                console.log('Error creating new restaurant');
+            });
+        };
+
         $scope.delete = function(restaurant) {
             RestaurantService.destroy(restaurant.id)
             .then(function(){
                 $scope.refreshRestaurants();
-            })
+            });
+        };
 
-        }
         $scope.edit = function(restaurant) {
             alert('this functionality doesnt exist yet!');
-        }
+        };
+
         $scope.refreshRestaurants();
         $scope.shown = false;
         $scope.newRestaurant = {};

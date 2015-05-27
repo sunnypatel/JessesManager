@@ -54,7 +54,10 @@ body {
 	/* Set up proportionate scaling */
 	width: 100%;
 	height: auto;
-
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
 	/* Set up positioning */
 	position: fixed;
 	top: 0;
