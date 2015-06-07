@@ -17,6 +17,10 @@ angular.module('jessesManager2App')
     var url = prod;
     var factory = {};
 
+    factory.getUrl = function(){
+      return url;
+    }
+
     factory.getRestaurantsBy = function(user) {
         var uri = url + '/user/login';
 
@@ -58,6 +62,22 @@ angular.module('jessesManager2App')
             method: 'POST',
             url: uri,
             data: newItem
+        });
+    }
+    factory.uploadItemImage = function(file, itemId) {
+
+        var uri = url + '/item/imageUpload';
+        var data = {
+          itemId: itemId,
+          image: file
+        };
+        return $http({
+            method: 'POST',
+            headers : {
+              'Content-Type': 'multipart/form-data'
+            },
+            url: uri,
+            data: data
         });
     }
     factory.removeItem = function(item) {

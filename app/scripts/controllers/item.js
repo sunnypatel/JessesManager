@@ -8,8 +8,8 @@
 * Controller of the jessesManager2App
 */
 angular.module('jessesManager2App')
-.controller('ItemCtrl', ['$scope', '$q', '$location', '$window', 'UserService', 'RestaurantService',
-function ($scope, $q, $location, $window, UserService, RestaurantService) {
+.controller('ItemCtrl', ['$scope', '$q', '$location', '$window', 'UserService', 'RestaurantService', 'Upload',
+function ($scope, $q, $location, $window, UserService, RestaurantService, Upload) {
 
 	$q.all({
 		user: UserService.getUserByApiToken($window.sessionStorage.apiToken)
@@ -55,10 +55,12 @@ function ($scope, $q, $location, $window, UserService, RestaurantService) {
 		RestaurantService.addItem(newItem)
 		.then(function(results){
 			console.log(results);
+			$scope.upload($scope.itemImage, results.data.id);
 			$('#newItemModal').modal('hide');
 			$scope.refreshItems($scope.selectedRestaurant.id);
 		});
 	}
+
 	$scope.removeItem = function(item) {
 		item.apiToken = $window.sessionStorage.apiToken;
 		RestaurantService.removeItem(item)
@@ -67,6 +69,24 @@ function ($scope, $q, $location, $window, UserService, RestaurantService) {
 			$scope.refreshItems($scope.selectedRestaurant.id);
 		});
 	}
+
+	$scope.upload = function (files, itemId) {
+		if (files && files.length) {
+		    for (var i = 0; i < files.length; i++) {
+		        var file = files[i];
+						Upload.upload({
+		            url: RestaurantService.getUrl() + '/item/imageUpload/',
+								file: file,
+								fileFormDataName: 'image',
+								fields: {itemId: itemId},
+								sendFieldsAs: 'form'
+		        }).progress(function (evt) {
+		        }).success(function (data, status, headers, config) {
+		            console.log('file uploaded. Response: ' + data);
+		        });
+		    }
+		}
+	};
 
 	var findById = function(index, collection) {
 		for (var i=0 ; i < collection.length ; i++)

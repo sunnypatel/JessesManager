@@ -18,7 +18,8 @@ angular
 	'ngTouch',
 	'ui.router',
 	'ngTagsInput',
-	'uiGmapgoogle-maps'
+	'uiGmapgoogle-maps',
+  'ngFileUpload'
   ])
   .config(function ($routeProvider, $stateProvider, $urlRouterProvider, uiGmapGoogleMapApiProvider) {
 	$urlRouterProvider.otherwise('/login');

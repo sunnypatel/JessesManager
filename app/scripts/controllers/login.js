@@ -33,7 +33,6 @@ function ($scope, $q, $location, UserService, $window) {
           // unknown response
         }
     });
-
   }
 
 }]);
