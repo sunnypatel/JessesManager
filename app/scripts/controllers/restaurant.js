@@ -97,8 +97,8 @@ angular.module('jessesManager2App')
                 }
                 $scope.restaurant.fullAddress = place.formatted_address;
                 $scope.restaurant.phone = place.international_phone_number;
-                $scope.restaurant.latitude = place.geometry.location.k;
-                $scope.restaurant.longitude = place.geometry.location.C;
+                $scope.restaurant.latitude = place.geometry.location.lat();
+                $scope.restaurant.longitude = place.geometry.location.lng();
 
                 var geolocation = {
                     latitude: $scope.restaurant.latitude,
