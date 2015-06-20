@@ -56,8 +56,6 @@ function ($scope, $q, $location, $window, UserService, RestaurantService, Upload
 		.then(function(results){
 			console.log(results);
 			$scope.upload($scope.itemImage, results.data.id);
-			$('#newItemModal').modal('hide');
-			$scope.refreshItems($scope.selectedRestaurant.id);
 		});
 	}
 
@@ -71,18 +69,23 @@ function ($scope, $q, $location, $window, UserService, RestaurantService, Upload
 	}
 
 	$scope.upload = function (files, itemId) {
+		var deferred = $q.defer();
+
 		if (files && files.length) {
 		    for (var i = 0; i < files.length; i++) {
 		        var file = files[i];
-						Upload.upload({
+				Upload.upload({
 		            url: RestaurantService.getUrl() + '/item/imageUpload/',
-								file: file,
-								fileFormDataName: 'image',
-								fields: {itemId: itemId},
-								sendFieldsAs: 'form'
+					file: file,
+					fileFormDataName: 'image',
+					fields: {itemId: itemId},
+					sendFieldsAs: 'form'
 		        }).progress(function (evt) {
 		        }).success(function (data, status, headers, config) {
-		            console.log('file uploaded. Response: ' + data);
+		            console.log('file uploaded. Response: ');
+					console.log(data);
+					$('#newItemModal').modal('hide');
+					$scope.refreshItems($scope.selectedRestaurant.id);
 		        });
 		    }
 		}
