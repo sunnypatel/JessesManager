@@ -13,7 +13,7 @@ angular.module('jessesManager2App')
   var staging = 'http://178.18.16.226:2730';
   var prod = 'http://restaurantapi.jesseme.com';
 
-  var url = prod;
+  var url = dev;
   var factory = {};
 
   factory.user = {};
