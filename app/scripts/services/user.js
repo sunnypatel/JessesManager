@@ -8,12 +8,8 @@
 * Controller of the jessesManager2App
 */
 angular.module('jessesManager2App')
-.factory('UserService', ['$http', function($http) {
-  var dev = 'http://localhost:2730';
-  var staging = 'http://178.18.16.226:2730';
-  var prod = 'http://restaurantapi.jesseme.com';
-
-  var url = prod;
+.factory('UserService', ['$http', 'ConnectionsService', function($http, ConnectionsService) {
+  var url = ConnectionsService.getUrl();
   var factory = {};
 
   factory.user = {};

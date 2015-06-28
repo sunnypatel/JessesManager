@@ -15,6 +15,13 @@ body {
 	src: url(/fonts/Drugs/Drugs.otf);
 	font-weight: medium;
 }
+
+.center-block {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 /* Everything but the jumbotron gets side spacing for mobile first views */
 .header,
 .marketing,
@@ -221,5 +228,15 @@ body {
 }
 .mainOrder_col1 {
 	text-align: center;
-	border-right: 2px dotted #337ab7;
+/*	border-right: 2px dotted #337ab7;*/
+}
+.margin-bottom {
+	margin-bottom: 15px;
+}
+.orderUserInfo {
+	padding-left:35px;
+}
+.orderButtons {
+	text-align: right;
+	padding-right:35px;
 }
