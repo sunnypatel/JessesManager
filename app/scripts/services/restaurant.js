@@ -8,18 +8,10 @@
 * Controller of the jessesManager2App
 */
 angular.module('jessesManager2App')
-.factory('RestaurantService', ['$http', '$window', function($http, $window) {
+.factory('RestaurantService', ['$http', '$window', 'ConnectionsService', function($http, $window, ConnectionsService) {
     var apiToken = $window.sessionStorage.apiToken;
-    var dev = 'http://localhost:2730';
-    var staging = 'http://178.18.16.226:2730';
-    var prod = 'http://restaurantapi.jesseme.com';
-
-    var url = dev;
     var factory = {};
-
-    factory.getUrl = function(){
-      return url;
-    }
+    var url = ConnectionsService.getUrl();
 
     factory.getRestaurantsBy = function(user) {
         var uri = url + '/user/login';
