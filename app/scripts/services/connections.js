@@ -15,6 +15,7 @@ angular.module('jessesManager2App')
     var prod = 'http://restaurantapi.jesseme.com';
 
     var url = prod;
+    io.sails.url = 'http://localhost:2730/';
     var factory = {};
 
     factory.getUrl = function() {
