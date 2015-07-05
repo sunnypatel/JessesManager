@@ -12,7 +12,10 @@ angular.module('jessesManager2App')
     var apiToken = $window.sessionStorage.apiToken;
     var factory = {};
     var url = ConnectionsService.getUrl();
-
+    
+    factory.getUrl = function() {
+        return url;
+    }
     factory.getRestaurantsBy = function(user) {
         var uri = url + '/user/login';
 
