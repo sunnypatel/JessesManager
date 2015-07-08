@@ -114,7 +114,10 @@
 	<!-- endbuild -->
 
     <script>
-        io.sails.url = 'http://restaurantapi.jesseme.com/';
+        var staging = 'http://stagingjesseme.ddns:4830/';
+        var prod = 'http://restaurantapi.jesseme.com/';
+        var local = 'http://localhost:2730/';
+        io.sails.url = staging;
     </script>
 	</body>
 </html>
