@@ -11,22 +11,7 @@ angular.module('jessesManager2App')
 .controller('OrdersCtrl', ['$scope', '$q', '$location', '$window', 'UserService', 'RestaurantService', 'OrdersService',
 function ($scope, $q, $location, $window, UserService, RestaurantService, OrdersService) {
 	$scope.orders = [];
-	io.socket.on("order", function(event){
-		console.log("in on");
-		console.log(event);
-		if (event.verb == 'created') {
-			console.log("in created");
-			console.log($scope.orders);
-			$scope.orders.push(event.data);
-			console.log($scope.orders);
-			$scope.$apply();
-		}
-	});
-	io.socket.get("/order", function(resData, jwres) {
-		console.log("in get");
-		console.log(resData);
-		$scope.orders = resData;
-	})
+
 
 	$q.all({
 		user: UserService.getUserByApiToken($window.sessionStorage.apiToken)
@@ -36,7 +21,21 @@ function ($scope, $q, $location, $window, UserService, RestaurantService, Orders
 		$scope.restaurants = UserService.user.ownsRestaurants;
 		$scope.selectedRestaurantId = $window.sessionStorage.selectedRestaurant || $scope.restaurants[0].id;
 		$scope.selectedRestaurant = findById($scope.selectedRestaurantId, $scope.restaurants);
-		$scope.refreshItems($scope.selectedRestaurantId);
+		$scope.refreshOrders($scope.selectedRestaurantId);
+
+		io.socket.on("order", function(event){
+			console.log("in on");
+			console.log(event);
+			if (event.verb == 'created' && event.data.restaurantId == $scope.selectedRestaurantId) {
+				console.log("in created");
+				console.log($scope.orders);
+				$scope.orders.push(event.data);
+				console.log($scope.orders);
+				$scope.$apply();
+			}
+		});
+
+
 	})
 	.catch(function(err) {
 		if (err.status == 400) {
@@ -49,10 +48,11 @@ function ($scope, $q, $location, $window, UserService, RestaurantService, Orders
 		}
 	});
 
-	$scope.refreshItems = function(restaurantId) {
-		RestaurantService.getItemsByRestaurant(restaurantId)
-		.then(function(resultItems){
-			$scope.items = resultItems.data;
+	$scope.refreshOrders = function(restaurantId) {
+		io.socket.get("/order?restaurantId=" + restaurantId, function(resData, jwres) {
+			console.log("in get: " + "/order?restaurantId=" + restaurantId);
+			console.log(resData);
+			$scope.orders = resData;
 		});
 	}
 	$scope.deleteOrder = function(orderId){
@@ -66,6 +66,24 @@ function ($scope, $q, $location, $window, UserService, RestaurantService, Orders
 			console.log(results);
 		});
 	}
+
+	$scope.changeSelRestaurant = function(restaurant) {
+		$window.sessionStorage.setItem('selectedRestaurant', restaurant.id);
+		$scope.selectedRestaurant = restaurant;
+		$scope.selectedRestaurantId = restaurant.id;
+		$scope.refreshOrders(restaurant.id);
+	}
+
+	$scope.tryTransaction = function(orderId) {
+		OrdersService.tryTransaction(orderId)
+		.then(function(results) {
+			console.log("Successful BrainTree transaction: " + results);
+		})
+		.catch(function(err){
+			console.log("BrainTree transaction error: " + err);
+		});
+	}
+
 	var findById = function(index, collection) {
 		for (var i=0 ; i < collection.length ; i++)
 		{

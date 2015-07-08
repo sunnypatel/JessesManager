@@ -17,7 +17,7 @@ function ($scope, $q, $location, $window, UserService, RestaurantService, Upload
 	.then(function(response){
 		UserService.user = response.user.data;
 		$scope.restaurants = UserService.user.ownsRestaurants;
-		$scope.selectedRestaurantId = $scope.restaurants[0].id || $window.sessionStorage.selectedRestaurant;
+		$scope.selectedRestaurantId = $window.sessionStorage.selectedRestaurant || $scope.restaurants[0].id;
 		$scope.selectedRestaurant = findById($scope.selectedRestaurantId, $scope.restaurants);
 		$scope.refreshItems($scope.selectedRestaurantId);
 	})

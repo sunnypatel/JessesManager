@@ -20,5 +20,15 @@ angular.module('jessesManager2App')
       });
   }
 
+  factory.tryTransaction = function(orderId) {
+      var uri = url + '/braintree/createOrderTransaction'
+      return $http({
+          url: uri,
+          method: 'POST',
+          data: {
+              orderId : orderId
+          }
+      });
+  }
   return factory;
 }]);
