@@ -22,7 +22,7 @@ angular.module('jessesManager2App')
       method: 'POST',
       url: uri,
       data: {
-        phone: user.phone,
+        phone: String(user.phone),
         password: user.password
       }
     });
